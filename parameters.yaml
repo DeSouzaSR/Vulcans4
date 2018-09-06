@@ -1,0 +1,39 @@
+# Number of planets
+n_planets: 8
+
+# Number of Solar System clones 
+n_clones: 96
+
+seed: 24515445 # seed to random -> JD for 2000-01-01 00h00, ignoring decimal point.
+
+# Semi-major axis of the planets
+semi_major_axis: 
+     - 3.870982252717257E-01
+     - 7.233268496749391E-01
+     - 1.000371833989169E+00
+     - 1.523678184302188E+00
+     - 5.205108607585142E+00
+     - 9.581451990386764E+00
+     - 1.922994520785785E+01
+     - 3.009697072395906E+01
+    
+# Define type of orbit
+ialpha: -1
+
+# gm: G time central mass
+gm: 39.476926421373015 # au^3 a^-2
+
+# Mass of planets
+mass: 
+    - 6.553712640384048E-06
+    - 9.663314328186044E-05
+    - 1.200269375704997E-04
+    - 1.273979777116743E-05
+    - 3.769224303888036E-02
+    - 1.128588775599917E-02
+    - 1.723661891724345E-03
+    - 2.033612060350484E-03
+
+# Vulcan' data
+n_vulcans: 10
+mass_vulcan: 1.200269375704997E-04
