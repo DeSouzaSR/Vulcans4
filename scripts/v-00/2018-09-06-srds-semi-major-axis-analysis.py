@@ -36,14 +36,14 @@ def read_orbital_element(planet, orbital_element, simulations, vulcan):
     """Read the orbital elements for each planet for all simulations"""
     df = init_df(planet, simulations)
     for simulation in simulations:
-        os.chdir('{}-{}-{:-03d}'.format(prefix_simulation, vulcan, simulation))
+        os.chdir('{}-{:02d}-{:03d}'.format(prefix_simulation, vulcan, simulation))
         df['v_{:02d}'.format(simulation)] = np.genfromtxt('{}.txt'.format(\
                                          planet))[:,orbital_element]
         os.chdir('..')
     return df
 
 
-def create_data_planet(planet, orbital_element, simulations):
+def create_data_planet(planet, orbital_element, simulations, vulcan):
     """Create data frame for all planets together by each orbital element"""
     oe = {'time':0, 'a':1, 'e':2, 'inc':3, 'capom':4, 'omega':5, 'capm':6, \
           'peri':7, 'apo':8, 'obar':9}
@@ -56,13 +56,34 @@ def create_data_planet(planet, orbital_element, simulations):
 path_ss_data = '../data/raw_data/vulcans'
 prefix_simulation = 'v'
 planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Vulcan']
-planet = 'Mercury' # for time reference
+oe = {'time':0, 'a':1, 'e':2, 'inc':3, 'capom':4, 'omega':5, 'capm':6, \
+          'peri':7, 'apo':8, 'obar':9}
 orbital_element = 'a'
 n_lines = 96 # Number of simulations
-simulations = np.arange(n_lines)
+simulations = list(range(n_lines))
+vulcan = 0
 
-# Create a empty dataframe
-os.chdir(path_ss_data)
-data_planet = create_data_planet(planet, 'a', simulations)
-time = data_planet.loc['Mercury']['time']
-mercury = data_planet.loc['Mercury']
+# Columns for simulations
+columns = ['time'] + ['v_{:02d}'.format(simulation) for simulation in simulations]
+
+# Empty data frame
+df = pd.DataFrame(columns=columns)
+
+# Fill time column, using first column by reference
+df['time']= np.genfromtxt('{}-00-000/{}.txt'.format(prefix_simulation,planet))[:,0]
+
+simulation = 0
+vulcan = 0
+os.chdir('{}-{:02d}-{:03d}'.format(prefix_simulation, vulcan, simulation))
+np.genfromtxt('{}.txt'.format(planet))[:,oe[orbital_element]]
+
+for simulation in simulations:
+    os.chdir('{}-{:02d}-{:03d}'.format(prefix_simulation, vulcan, simulation))
+    df['v_{:02d}'.format(simulation)] = np.genfromtxt('{}.txt'.format(planet))[:,oe[orbital_element]]
+    os.chdir('..')
+
+# # Create a empty dataframe
+# os.chdir(path_ss_data)
+# data_planet = create_data_planet(planet, 'a', simulations)
+# time = data_planet.loc['Mercury']['time']
+# mercury = data_planet.loc['Mercury']
