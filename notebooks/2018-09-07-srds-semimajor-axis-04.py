@@ -1,8 +1,11 @@
 
 # coding: utf-8
 
-# # Plots of the semimajor axis
+# # Vulcan 04
+# ## Semimajor axis
 # This notebook provides the graphics of the time evolution of the semi-major axis.
+# 
+# $a = 0.25\,au$
 
 # In[2]:
 
@@ -44,10 +47,6 @@ n_clones = 96
 # Define variables
 planets = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Vulcan"]
 
-
-# ## Vulcan 04
-# 
-# Semi-major axis : 0.25 au
 
 # In[7]:
 
